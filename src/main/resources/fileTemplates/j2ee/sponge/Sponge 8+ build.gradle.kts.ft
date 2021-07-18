@@ -53,8 +53,7 @@ sponge {
 
 val javaTarget = 8 // Sponge targets a minimum of Java 8
 java {
-    sourceCompatibility = JavaVersion.toVersion(javaTarget)
-    targetCompatibility = JavaVersion.toVersion(javaTarget)
+    toolchain.languageVersion.set(JavaLanguageVersion.of(javaTarget))
 }
 
 tasks.withType(JavaCompile::class).configureEach {

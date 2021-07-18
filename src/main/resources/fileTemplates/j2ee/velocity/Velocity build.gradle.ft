@@ -5,8 +5,9 @@ plugins {
 group = '${GROUP_ID}'
 version = '${PLUGIN_VERSION}'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(8)
+}
 
 repositories {
     mavenCentral()
@@ -15,12 +16,11 @@ repositories {
 dependencies {
 }
 
-import org.apache.tools.ant.filters.ReplaceTokens
-
 task processSources(type: Sync) {
     from sourceSets.main.java.srcDirs
-    inputs.property 'version', version
-    filter ReplaceTokens, tokens: [version: version]
+    def props = [version: version]
+    inputs.properties props
+    expand props
     into "$buildDir/src"
 }
 

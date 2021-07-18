@@ -1,15 +1,14 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow'
 }
-
-apply plugin: 'com.github.johnrengelman.shadow'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile project(':${COMMON_PROJECT_NAME}')
+    api project(':${COMMON_PROJECT_NAME}')
 }
 
 shadowJar {
@@ -18,12 +17,11 @@ shadowJar {
     }
 }
 
-import org.apache.tools.ant.filters.ReplaceTokens
-
 task processSources(type: Sync) {
     from sourceSets.main.java.srcDirs
-    inputs.property 'version', version
-    filter ReplaceTokens, tokens: [version: version]
+    def props = [version: project.version]
+    inputs.properties props
+    expand props
     into "$buildDir/src"
 }
 

@@ -2,7 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "${PACKAGE_NAME}",
+  #if (${JAVA_VERSION} < 16)
   "compatibilityLevel": "JAVA_8",
+  #else
+  "compatibilityLevel": "JAVA_16",
+  #end
   "mixins": [
   ],
   "client": [

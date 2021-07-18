@@ -5,8 +5,9 @@ plugins {
 group = '${GROUP_ID}'
 version = '${PLUGIN_VERSION}'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+}
 
 dependencies {
 }

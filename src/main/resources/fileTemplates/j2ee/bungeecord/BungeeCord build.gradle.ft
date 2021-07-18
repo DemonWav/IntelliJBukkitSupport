@@ -1,12 +1,11 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 apply plugin: 'java'
 
 group = '${GROUP_ID}'
 version = '${PLUGIN_VERSION}'
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(8)
+}
 
 repositories {
     mavenCentral()
@@ -16,7 +15,7 @@ dependencies {
 }
 
 processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
-    }
+    def props = [version: version]
+    inputs.properties props
+    expand props
 }
